@@ -1,7 +1,5 @@
 ------------------------------------------------------------
-# App de Agendamentos – Teste Técnico (Full Stack Estágio) 
-
-## Este repositório contém minha solução para o Teste Técnico de Estagiário(a) Full Stack – Mobile/Web da Rede GESS.
+# App de Agendamentos
 
 ### O projeto consiste em um aplicativo simples de agendamento integrado a uma API própria, permitindo criar, listar e excluir agendamentos.
 
