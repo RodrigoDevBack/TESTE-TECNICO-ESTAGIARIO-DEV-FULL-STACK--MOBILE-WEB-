@@ -1,18 +1,18 @@
 import { prisma } from "../db/connection.ts";
 
 interface createAppointments {
-  nome: String;
-  servico: String;
-  data: String;
-  hora: String;
+  nome: string;
+  servico: string;
+  data: string;
+  hora: string;
 }
 
 interface updateAppointments {
   id: number;
-  nome?: String;
-  servico?: String;
-  data?: String;
-  hora?: String;
+  nome?: string;
+  servico?: string;
+  data?: string;
+  hora?: string;
 } 
 
 interface deleteAppointments {
@@ -30,7 +30,7 @@ export async function createRepoAppoin(data: createAppointments) {
           },
         });
         return appointments;
-    } catch (err) {
+    } catch (error) {
         return false;
     }
 }
@@ -39,7 +39,7 @@ export async function getRepoAppoin() {
     try {
         const allAppoin = await prisma.agendamento.findMany();
         return allAppoin;
-    } catch (err) {
+    } catch (error) {
         return false;
     }
 }
@@ -60,13 +60,13 @@ export async function deleteRepoAppoin(data: deleteAppointments) {
       })
       if (tesasd) {
         await prisma.agendamento.delete({
-          where: {
+          where:{
             id
           }
         })
       }
       return true
-    } catch (err) {
-      return false
+    } catch (error) {
+      return error
     }
 }

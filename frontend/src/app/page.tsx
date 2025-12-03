@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -8,8 +9,8 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import EditTask from '../components/edit-task';
-import DeleteAlert from '../components/delete-alert';
+import EditTask from "../components/edit-task";
+import DeleteAlert from "../components/delete-alert";
 
 import {
   Plus,
@@ -20,8 +21,24 @@ import {
   ClipboardCheck,
   Sigma,
 } from "lucide-react";
+import { getAgdm } from "@/actions/get_agdm";
+import { useEffect, useState } from "react";
 
 function Home() {
+  const [taskList, setTaskList] = useState<[]>([]);
+
+  const agdms = async () => {
+    const agdm = await getAgdm();
+
+    if (!agdm) return;
+
+    return setTaskList(agdm);
+  };
+
+  useEffect(() => {
+    agdms();
+  }, []);
+
   return (
     <div className="w-full h-screen bg-gray-100 flex justify-center items-center">
       <Card className="w-xl">
@@ -48,16 +65,27 @@ function Home() {
           </div>
 
           <div className="mt-4 border-b-1">
-            <div className="h-14 flex justify-between items-center border-t-1">
-              <div className="w-1 h-full bg-green-300"></div>
+            {taskList.map((task) => (
+              <div
+                className="h-14 flex justify-between items-center border-t-1"
+                key={task.id}
+              >
+                <div className="w-1 h-full bg-green-300"></div>
+                <p className="flex-1 px-2 text-sm">{task.nome}</p>
+                <p className="flex-2 px-2 text-sm">{task.servico}</p>
 
-              <p className="flex-1 px-2 text-sm">Estudar React</p>
+                <div className="flex justify-between">
+                  <p className="px-2 text-sm">
+                    {task.data} {task.hora}
+                  </p>
+                </div>
 
-              <div className="flex items-center gap-2">
-                <EditTask />
-                <Trash size={18} className="cursor-pointer" />
+                <div className="flex items-center gap-2">
+                  <EditTask />
+                  <Trash size={18} className="cursor-pointer" />
+                </div>
               </div>
-            </div>
+            ))}
           </div>
 
           <div className="flex justify-between mt-7">
